@@ -8,7 +8,7 @@
         @foreach (KeyValuePair<string, string> item in job)
                 {
             <tr>
-                <td></td>@item.Value<td/>
+                <td>@item.Value<td/>
             </tr>
             //<td><a asp-controller="List" asp-action="Jobs" asp-route-jobs="@item.Key" asp-route-value="@item.Value">@item.Value</a></td>
         }

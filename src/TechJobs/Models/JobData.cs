@@ -48,29 +48,33 @@ namespace TechJobs.Models
          */
         public static List<Dictionary<string, string>> FindByValue(string value)
         {
-            // load data, if not already loaded
+            /*Search in each column for the value. If the key has already been added, don't add it again.*/
             LoadData();
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
 
+            if (value == null)
+            {
+                return null;
+            }
+
             foreach (Dictionary<string, string> row in AllJobs)
             {
 
-                foreach (string key in row.Keys)
+                foreach (KeyValuePair<string, string> item in row)
                 {
-                    string aValue = row[key];
-
-                    if (aValue.ToLower().Contains(value.ToLower()))
+                    bool contains = item.Value.IndexOf(value, System.StringComparison.OrdinalIgnoreCase) >= 0;
+                    if (contains)
                     {
                         jobs.Add(row);
-
-                        // Finding one field in a job that matches is sufficient
                         break;
                     }
                 }
             }
 
             return jobs;
+
+
         }
 
         /**
@@ -86,6 +90,11 @@ namespace TechJobs.Models
             LoadData();
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            if (value == null)
+            {
+                return null;
+            }
 
             foreach (Dictionary<string, string> row in AllJobs)
             {
